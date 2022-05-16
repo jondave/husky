@@ -1,0 +1,26 @@
+global_costmap:
+  update_frequency: 2.5
+  publish_frequency: 2.5
+  transform_tolerance: 0.5
+  width: 15
+  height: 15
+  origin_x: -7.5 # half of cost maps size (width, height so robot is always in centre of cost map)
+  origin_y: -7.5
+  rolling_window: true
+  inflation_radius: 2.5
+  resolution: 0.1
+  plugins:
+   - {name: static_layer,        type: "costmap_2d::StaticLayer"}
+
+
+#global_costmap:
+#  update_frequency: 1
+#  publish_frequency: 1
+#  transform_tolerance: 1
+#  width: 40
+#  height: 40
+#  origin_x: 0
+# origin_y: 0
+#  static_map: true
+#  rolling_window: true
+#  resolution: 0.1

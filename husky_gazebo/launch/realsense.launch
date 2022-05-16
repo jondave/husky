@@ -6,7 +6,7 @@
       <remap from="scan" to="realsense/scan"/>
       <!-- TODO: modify these to match the Realsense D400 series parameters -->
       <rosparam>
-          target_frame: base_link # Leave empty to output scan in the pointcloud frame
+          target_frame: front_realsense #base_link # Leave empty to output scan in the pointcloud frame
           tolerance: 1.0
           min_height: 0.05
           max_height: 1.0

@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+
+<launch>
+
+  <node pkg="move_base" type="move_base" name="move_base" output="screen">
+    <param name="controller_frequency" value="10.0"/>
+
+    <!-- observation sources located in costmap_common_params.yaml -->
+    <rosparam file="$(find husky_gazebo)/config/move_base/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find husky_gazebo)/config/move_base/costmap_common_params.yaml" command="load" ns="local_costmap" />
+
+    <!-- local costmap, needs size -->
+    <rosparam file="$(find husky_gazebo)/config/move_base/local_costmap_params.yaml" command="load" />
+
+    <!-- static global costmap, static map provides size -->
+    <rosparam file="$(find husky_gazebo)/config/move_base/global_costmap_params.yaml" command="load" />
+
+    <!-- trajectory planner -->
+    <rosparam file="$(find husky_gazebo)/config/move_base/trajectory_planner.yaml" command="load" />
+
+    <!-- global planner -->
+    <rosparam file="$(find husky_gazebo)/config/move_base/planner_global.yaml" command="load" />
+    <param name="base_global_planner" value="global_planner/GlobalPlanner"/>
+
+    <!-- local planner -->
+    <rosparam file="$(find husky_gazebo)/config/move_base/planner_local.yaml" command="load" />
+    <param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS"/>
+  </node>
+
+</launch>
