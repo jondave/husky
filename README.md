@@ -1,6 +1,9 @@
 switch branch to melodic-devel
 =====
 
+To add realsense camera ```export HUSKY_URDF_EXTRAS=$HOME/catkin_ws/src/husky/husky_description/urdf/accessories/realsense.urdf.xacro```
+https://www.clearpathrobotics.com/assets/guides/noetic/husky/CustomizeHuskyConfig.html
+
 husky
 =====
 
