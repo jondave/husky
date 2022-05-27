@@ -20,6 +20,7 @@
 
   <!--- Run Move Base -->
   <remap from="map" to="/rtabmap/proj_map"/>
+  <include file="$(find husky_navigation)/launch/gps_localisation.launch" />
   <include file="$(find husky_gazebo)/launch/move_base_rtab_simulation.launch" />
   
   <!-- Run the ROS package stereo_image_proc for image rectification-->
