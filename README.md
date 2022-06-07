@@ -9,6 +9,8 @@ https://www.clearpathrobotics.com/assets/guides/noetic/husky/CustomizeHuskyConfi
 # Set enviroment varables in setup.sh
 Use ```home/<catkin_ws>/devel/setup.sh``` at bottom add ```export``` enviroment varables e.g. controller type ```export HUSKY_8BITDO=1```.
 
+!!! Make sure to close terminal and open new terminal after changing/adding any enviroment varables before rerunnng ROS. Otherwise ROS will use previouls enviroment varables. !!!
+
 husky
 =====
 
