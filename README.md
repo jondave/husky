@@ -7,7 +7,7 @@ To add realsense camera ```export HUSKY_URDF_EXTRAS=$HOME/catkin_ws/src/husky/hu
 https://www.clearpathrobotics.com/assets/guides/noetic/husky/CustomizeHuskyConfig.html
 
 # Set enviroment varables in setup.sh
-Use ```home/<catkin_ws>/devel/setup.sh``` at bottom aad ```export``` enviroment varables e.g. controller type ```export HUSKY_8BITDO=1```.
+Use ```home/<catkin_ws>/devel/setup.sh``` at bottom add ```export``` enviroment varables e.g. controller type ```export HUSKY_8BITDO=1```.
 
 husky
 =====
