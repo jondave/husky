@@ -1,7 +1,8 @@
 <launch>
 
+  <arg name="camera" default="/realsense"/>
   <!--- Run Move Base -->
-  <include file="$(find husky_gazebo)/launch/move_base_rtab_simulation.launch" />
+  <!--<include file="$(find husky_navigation)/launch/rtab_map/move_base_rtab.launch" />-->
 
   <!-- SLAM -->
   <group ns="rtabmap">
@@ -10,13 +11,14 @@
 
       <param name="subscribe_depth" type="bool" value="true"/>
       <param name="subscribe_scan" type="bool" value="true"/>
+      <param name="subscribe_stereo" type="bool" value="false"/>
 
       <remap from="odom" to="/odometry/filtered"/>
       <remap from="scan" to="/realsense/scan"/>
 
       <remap from="rgb/image"       to="/realsense/color/image_raw"/>
       <remap from="depth/image"     to="/realsense/depth/image_rect_raw"/>
-      <remap from="rgb/camera_info" to="/camera/color/camera_info"/>
+      <remap from="rgb/camera_info" to="/realsense/color/camera_info"/>
       
       <remap from="map" to="/rtabmap/proj_map"/>
 

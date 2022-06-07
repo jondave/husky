@@ -72,75 +72,6 @@
           </plugin>
         </sensor>
       </gazebo>
-
-    <!-- added code for greyscale "IR" stereo camera-->
-    <!-- Stereo Camera Sensor Front Start -->
-    <!-- chage camera lens seperation distances to real values -->
-
-    <gazebo reference="${frame}">
-        <sensor type="multicamera" name="${prefix}_realsense_stereo">
-            <update_rate>30.0</update_rate>
-            <camera name="left">
-                <pose>0 0.02 0 0 0 0</pose> <!-- x y z r p y -->
-              
-                <!-- 75x65 degree FOV for the depth sensor -->
-                <horizontal_fov>1.5184351666666667</horizontal_fov>
-                <vertical_fov>1.0122901111111111</vertical_fov>
-                <image>
-                    <width>848</width>
-                    <height>800</height>
-                    <format>L8</format> <!-- L8 is greysacle use R8G8B8 for color -->
-                </image>
-                <clip>
-                    <near>0.02</near>
-                    <far>300</far>
-                </clip>
-                <noise>
-                    <type>gaussian</type>
-                    <mean>0.0</mean>
-                    <stddev>0.007</stddev>
-                </noise>
-            </camera>
-            <camera name="right">
-                <pose>0 -0.02 0 0 0 0</pose> <!-- x y z r p y -->
-                
-                <!-- 75x65 degree FOV for the depth sensor -->
-                <horizontal_fov>1.5184351666666667</horizontal_fov>
-                <vertical_fov>1.0122901111111111</vertical_fov>
-                <image>
-                    <width>848</width>
-                    <height>800</height>
-                    <format>L8</format> <!-- L8 is greysacle use R8G8B8 for color -->
-                </image>
-                <clip>
-                    <near>0.02</near>
-                    <far>300</far>
-                </clip>
-                <noise>
-                    <type>gaussian</type>
-                    <mean>0.0</mean>
-                    <stddev>0.007</stddev>
-                </noise>
-            </camera>
-            <plugin name="stereo_camera_controller" filename="libgazebo_ros_multicamera.so">
-                <alwaysOn>true</alwaysOn>
-                <updateRate>0.0</updateRate>
-                <cameraName>${topic}</cameraName>
-                <imageTopicName>image_raw</imageTopicName>
-                <cameraInfoTopicName>camera_info</cameraInfoTopicName>
-                <frameName>${frame}_gazebo</frameName>
-                <!--<rightFrameName>right_camera_optical_frame</rightFrameName>-->
-                <hackBaseline>0.07</hackBaseline>
-                <distortionK1>0.0</distortionK1>
-                <distortionK2>0.0</distortionK2>
-                <distortionK3>0.0</distortionK3>
-                <distortionT1>0.0</distortionT1>
-                <distortionT2>0.0</distortionT2>
-            </plugin>
-        </sensor>
-    </gazebo>
-    <!-- added code for greyscale "IR" stereo camera-->
-
     </xacro:macro>
 
     <link name="${prefix}_realsense_lens">
@@ -169,9 +100,6 @@
       <child link="${prefix}_realsense" />
     </joint>
 
-    <!-- Stereo Camera Sensor Front End -->
-
     <xacro:intel_realsense frame="${prefix}_realsense" topic="${topic}"/>
   </xacro:macro>
-
 </robot>

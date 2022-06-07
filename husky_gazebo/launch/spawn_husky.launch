@@ -69,6 +69,19 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
       <include file="$(find husky_gazebo)/launch/realsense.launch" />
     </group>
 
+    <!-- code added -->
+    <!-- if Veleodyne VLP16 lidar enabled-->
+    <group if="$(optenv HUSKY_LASER_3D_ENABLED 0)"> 
+      <include file="$(find husky_bringup)/launch/velodyne_config/vlp16_pointcloud_to_laserscan.launch" />
+    </group>
+
+    <!-- Translate from NavSatFix to GPSFix used for mapviz//-->
+    <node name="fix_translator" pkg="gps_common" type="fix_translator">    
+      <remap from="/navsat_fix_in"  to="/navsat/fix"/>
+      <remap from="/gps_fix_out"    to="/gps/fix"/>
+    </node>
+    <!-- code added -->
+
     <!-- Spawn robot in gazebo -->
     <node name="spawn_husky_model" pkg="gazebo_ros" type="spawn_model"
         args="-x $(arg x)

@@ -1,6 +1,8 @@
 <launch>
+<!-- http://wiki.ros.org/rtabmap_ros/Tutorials/SetupOnYourRobot -->
+<!-- 2.2 - Kinect + Odometry + Fake 2D laser from Kinect -->
 
-  <arg name="camera" default="/realsense_stereo"/>
+  <arg name="camera" default="/realsense"/>
 
   <!-- ROS navigation stack move_base -->
   <!--<group ns="planner">
@@ -18,10 +20,12 @@
     </node>
   </group>-->
 
+  <!-- ############################# dont think you can run both depth and stereo at same time ###################################### -->
+
   <!--- Run Move Base -->
   <remap from="map" to="/rtabmap/proj_map"/>
   <include file="$(find husky_navigation)/launch/gps_localisation.launch" />
-  <include file="$(find husky_gazebo)/launch/move_base_rtab_simulation.launch" />
+  <!--<include file="$(find husky_navigation)/launch/rtab_map/move_base_rtab.launch" />-->
   
   <!-- Run the ROS package stereo_image_proc for image rectification-->
 	<group ns="$(arg camera)" >
@@ -92,14 +96,23 @@
     <node name="rtabmap" pkg="rtabmap_ros" type="rtabmap" output="screen" args="--delete_db_on_start">
       <param name="frame_id" type="string" value="base_link"/>
       <param name="subscribe_stereo" type="bool" value="true"/>
-      <param name="subscribe_depth" type="bool" value="false"/>
+      
+      <param name="subscribe_depth" type="bool" value="true"/>
+      <param name="subscribe_scan" type="bool" value="true"/>
+      <param name="subscribe_scan_cloud" type="bool" value="true"/>
 
-      <remap from="left/image_rect" to="$(arg camera)/left/image_rect_color"/>
+      <remap from="left/image_rect" to="$(arg camera)/left/image_rect"/>
       <remap from="right/image_rect" to="$(arg camera)/right/image_rect"/>
       <remap from="left/camera_info" to="$(arg camera)/left/camera_info_throttle"/>
       <remap from="right/camera_info" to="$(arg camera)/right/camera_info_throttle"/>
 
+      <remap from="scan" to="/realsense/scan"/>
+      <remap from="scan_cloud" to="/realsense/depth/color/points"/>
       <remap from="odom" to="/odometry/filtered"/>
+
+      <remap from="rgb/image"       to="/realsense/color/image_raw"/>
+      <remap from="depth/image"     to="/realsense/depth/image_rect_raw"/>
+      <remap from="rgb/camera_info" to="/camera/color/camera_info"/>
 
       <param name="queue_size" type="int" value="30"/>
 
@@ -118,6 +131,14 @@
 
       <param name="LccReextract/Activated" type="string" value="true"/>
       <param name="LccReextract/MaxWords" type="string" value="500"/>
+
+      <!-- RTAB-Map's parameters depth image-->
+      <param name="RGBD/ProximityBySpace"     type="string" value="false"/>
+      <param name="RGBD/AngularUpdate"        type="string" value="0.01"/>
+      <param name="RGBD/LinearUpdate"         type="string" value="0.01"/>
+      <param name="RGBD/OptimizeFromGraphEnd" type="string" value="false"/>
+      <param name="Reg/Force3DoF"             type="string" value="true"/>
+
     </node>
    </group>
 

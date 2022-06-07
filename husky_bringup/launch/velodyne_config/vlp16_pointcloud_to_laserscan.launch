@@ -1,12 +1,13 @@
+<?xml version="1.0"?>
 <launch>
-  <!-- Include poincloud_to_laserscan if simulated realsense is attached -->
-  <node pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" name="realsense_to_laserscan" output="screen">
+  <!-- Include poincloud_to_laserscan if lidar is attached -->
+  <node pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" name="vlp16_to_laserscan" output="screen">
 
-      <remap from="cloud_in" to="realsense/depth/color/points"/>
-      <remap from="scan" to="realsense/scan"/>
+      <remap from="cloud_in" to="$(optenv HUSKY_LASER_3D_TOPIC points)"/>
+      <remap from="scan" to="scan"/>
       <!-- TODO: modify these to match the Realsense D400 series parameters -->
       <rosparam>
-          target_frame: base_link # Leave empty to output scan in the pointcloud frame
+          #target_frame: base_link # Leave empty to output scan in the pointcloud frame
           tolerance: 1.0
           min_height: 0.05
           max_height: 1.0
