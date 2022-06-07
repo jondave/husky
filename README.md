@@ -39,6 +39,9 @@ To use with move base (this also brings up the cost map with colours)  ```roslau
 
 Use Open Street Map in Object URI ```https://tile.openstreetmap.org/{z}/{x}/{y}.png```
 
+Clearpath Readme
+=====
+
 husky
 =====
 
