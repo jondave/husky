@@ -6,14 +6,14 @@ MY NOTES
 To add realsense camera ```export HUSKY_URDF_EXTRAS=$HOME/catkin_ws/src/husky/husky_description/urdf/accessories/realsense.urdf.xacro```
 https://www.clearpathrobotics.com/assets/guides/noetic/husky/CustomizeHuskyConfig.html
 
-# Set enviroment varables in setup.sh
-Use ```home/<catkin_ws>/devel/setup.bash``` at bottom add ```export``` enviroment varables.
+# Set environment varables in setup.sh
+Use ```opt/ros/melodic/setup.bash``` at bottom add ```export``` environment varables.
 
 ```
 export HUSKY_8BITDO=1
 
 export HUSKY_IMU_PORT=/dev/ttyUSB0
-export HUSKY_NAVSAT_PORT=HUSKY_NAVSAT_PORT
+export HUSKY_NAVSAT_PORT=/dev/ttyACM0
 
 export HUSKY_LASER_3D_ENABLED=true
 export HUSKY_REALSENSE_ENABLED=true
@@ -21,13 +21,13 @@ export HUSKY_REALSENSE_ENABLED=true
 export HUSKY_SENSOR_ARCH_HEIGHT=300
 ```
 
-!!! Make sure to close terminal and open new terminal after changing/adding any enviroment varables before rerunnng ROS. Otherwise ROS will use previouls enviroment varables. !!!
+!!! Make sure to close terminal and open new terminal after changing/adding any environment varables before rerunnng ROS. Otherwise ROS will use previouls environment varables. !!!
 
 # RTAB Map
 
 rtab map needs ```sudo apt install ros-melodic-image-pipeline```
 
-```map``` is remapped to ```/rtabmap/proj_map```
+```map``` is remapped to ```/rtabmap/proj_map``` may need to change back to ```map``` or change in costmap config
 
 Rtab map using depth camera and scan from depth camera ```roslaunch husky_navigation rtab_map_depth.launch```
 
@@ -38,6 +38,11 @@ To use with move base (this also brings up the cost map with colours)  ```roslau
 # RViz Satellite
 
 Use Open Street Map in Object URI ```https://tile.openstreetmap.org/{z}/{x}/{y}.png```
+
+# GPS
+The ```husky_bringup navsat.launch``` only works with GPS and not the RTK injection data.
+Use ``` husky_bringup ublox_holybro.launch``` to use the GPS with RTK data.
+Or ``` ublox_gps ublox_holybro.launch``` to use the GPS with RTK data.
 
 Clearpath Readme
 =====
