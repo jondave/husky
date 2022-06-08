@@ -7,6 +7,8 @@ MY NOTES
 Use ```opt/ros/melodic/setup.bash``` at bottom add ```export``` environment varables.
 
 ```
+HUSKY_PORT=/dev/???????? # USB port for the USB to serial cable to husky motor controller
+
 export HUSKY_8BITDO=1
 
 export HUSKY_IMU_PORT=/dev/ttyUSB0
