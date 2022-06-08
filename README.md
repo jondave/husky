@@ -5,6 +5,7 @@ MY NOTES
 
 To add realsense camera ```export HUSKY_URDF_EXTRAS=$HOME/catkin_ws/src/husky/husky_description/urdf/accessories/realsense.urdf.xacro```
 https://www.clearpathrobotics.com/assets/guides/noetic/husky/CustomizeHuskyConfig.html
+!!! Some of the variable names on the clearpath websitte are wrong e.g. realsense orientation offset!!!
 
 # Set environment varables in setup.sh
 Use ```opt/ros/melodic/setup.bash``` at bottom add ```export``` environment varables.
@@ -19,6 +20,9 @@ export HUSKY_LASER_3D_ENABLED=true
 export HUSKY_REALSENSE_ENABLED=true
 
 export HUSKY_SENSOR_ARCH_HEIGHT=300
+
+export HUSKY_LASER_3D_XYZ='0 0 0' # change to real lidar location
+export HUSKY_REALSENSE_XYZ='0 0 0' # change to real realsense location
 ```
 
 !!! Make sure to close terminal and open new terminal after changing/adding any environment varables before rerunnng ROS. Otherwise ROS will use previouls environment varables. !!!
