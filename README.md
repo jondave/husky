@@ -9,18 +9,23 @@ Use ```opt/ros/melodic/setup.bash``` at bottom add ```export``` environment vara
 ```
 HUSKY_PORT=/dev/???????? # USB port for the USB to serial cable to husky motor controller
 
+#export HUSKY_LOGITECH=1 # use logitech or 8bitdo controler
 export HUSKY_8BITDO=1
 
 export HUSKY_IMU_PORT=/dev/ttyUSB0
 export HUSKY_NAVSAT_PORT=/dev/ttyACM0
 
 export HUSKY_LASER_3D_ENABLED=true
+#export HUSKY_LASER_3D_XYZ='0 0 0' # change to real lidar location
+
 export HUSKY_REALSENSE_ENABLED=true
+export HUSKY_REALSENSE_XYZ='0.1 0 -0.1' # change to real realsense location
+
+export HUSKY_REALSENSE_SECONDARY_ENABLED=true # use second realsesne ar rear
+export HUSKY_REALSENSE_SECONDARY_XYZ='-0.1 0 -0.1' # change to real realsense location
+export HUSKY_REALSENSE_SECONDARY_RPY='0 0 3.14159' # change to real realsense RPY
 
 export HUSKY_SENSOR_ARCH_HEIGHT=300
-
-export HUSKY_LASER_3D_XYZ='0 0 0' # change to real lidar location
-export HUSKY_REALSENSE_XYZ='0 0 0' # change to real realsense location
 ```
 
 !!! Make sure to close terminal and open new terminal after changing/adding any environment varables before rerunnng ROS. Otherwise ROS will use previouls environment varables. !!!
