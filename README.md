@@ -45,6 +45,12 @@ Rtab map using stereo camera ```roslaunch husky_navigation rtab_map_stereo.launc
 
 To use with move base (this also brings up the cost map with colours)  ```roslaunch husky_navigation move_base_mapless_demo.launch```
 
+If error when using two cameras.
+Need to git clone rtab_ros package into catkin workspace and make with this variable ```catkin_make -DRTABMAP_SYNC_MULTI_RGBD=ON```
+https://github.com/introlab/rtabmap_ros/issues/459
+https://github.com/introlab/rtabmap_ros/issues/464
+(may need to remove rtabmap_ros from ROS install directory)
+
 # RViz Satellite
 
 Use Open Street Map in Object URI ```https://tile.openstreetmap.org/{z}/{x}/{y}.png```

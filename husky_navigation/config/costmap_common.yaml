@@ -13,12 +13,15 @@ raytrace_range: 6.0
 
 #layer definitions
 static:
-    map_topic: /map
+    map_topic: /rtabmap/proj_map # /map # /rtabmap/proj_map is the rtabmap topic
     subscribe_to_updates: true
 
+# change to realsense sources
 obstacles_laser:
-    observation_sources: laser
-    laser: {data_type: LaserScan, clearing: true, marking: true, topic: scan, inf_is_valid: true}
+    observation_sources: realsense_laser realsense_rear_laser #laser # add / remove lidar laser
+    #laser: {data_type: LaserScan, clearing: true, marking: true, topic: scan, inf_is_valid: true}
+    realsense_laser: {data_type: LaserScan, clearing: true, marking: true, topic: realsense/scan, inf_is_valid: true}
+    realsense_rear_laser: {data_type: LaserScan, clearing: true, marking: true, topic: realsense_rear/scan, inf_is_valid: true}
 
 inflation:
-    inflation_radius: 1.0
+    inflation_radius: 0.5 # default 1.0
