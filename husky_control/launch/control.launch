@@ -5,6 +5,7 @@
   <arg name="simulation" default="$(optenv ROBOT_SIMULATION false)"/>
   <arg name="robot_namespace" default="$(optenv ROBOT_NAMESPACE robot)"/>
   <arg name="enable_ekf" default="$(optenv ENABLE_EKF true)"/>
+  <arg name="enable_ekf_gps" default="$(optenv ENABLE_EKF_GPS true)"/>
 
   <arg name="config_extras"
        default="$(eval optenv('HUSKY_CONFIG_EXTRAS', find('husky_control') + '/config/empty.yaml'))"/>
@@ -33,9 +34,17 @@
   <!-- Start EKF for localization -->
   <group if="$(arg enable_ekf)" >
     <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization">
+      <rosparam command="load" file="$(find husky_control)/config/localization.yaml" />
+    </node>
+  </group>
+
+  <!-- added code for using GPS in ekf locaisation -->
+  <group if="$(arg enable_ekf_gps)" >
+    <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization_gps">
       <rosparam command="load" file="$(find husky_control)/config/localization_gps.yaml" />
     </node>
   </group>
+  <!-- added code for using GPS in ekf locaisation -->
 
   <node pkg="interactive_marker_twist_server" type="marker_server" name="twist_marker_server" output="screen"/>
 

@@ -1,0 +1,5 @@
+# Generated from /tmp/calibrate_compass.Yvgz/imu_record.bag on 2022-06-13.
+use_mag: true
+mag_bias_x: 0.255989270
+mag_bias_y: 0.090583248
+mag_bias_z: 1.094878441

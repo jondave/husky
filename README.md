@@ -7,29 +7,38 @@ MY NOTES
 Use ```opt/ros/melodic/setup.bash``` at bottom add ```export``` environment varables.
 
 ```
-HUSKY_PORT=/dev/???????? # USB port for the USB to serial cable to husky motor controller
+HUSKY_PORT=/dev/ttyUSB0 # USB port for the USB to serial cable to husky motor controller
 
 #export HUSKY_LOGITECH=1 # use logitech or 8bitdo controler
 export HUSKY_8BITDO=1
 
-export HUSKY_IMU_PORT=/dev/ttyUSB0
-#export HUSKY_IMU_XYZ='0 0 0' # change to real IMU location
-#export HUSKY_IMU_RPY='0 0 0' # change to real IMU pose/orientation
+export HUSKY_IMU_PORT=/dev/ttyUSB1
+#export HUSKY_IMU_XYZ='0 0 0.26' # change to real IMU location
+#export HUSKY_IMU_RPY='3.141592 0 0' # change to real IMU pose/orientation
 
 export HUSKY_NAVSAT_PORT=/dev/ttyACM0
 
-export HUSKY_LASER_3D_ENABLED=true
+#export HUSKY_LASER_3D_ENABLED=true
 #export HUSKY_LASER_3D_XYZ='0 0 0' # change to real lidar location
 
 export HUSKY_REALSENSE_ENABLED=true
-export HUSKY_REALSENSE_XYZ='0.1 0 -0.1' # change to real realsense location
+export HUSKY_REALSENSE_XYZ='0.3 0 -0.05' # change to real realsense location
 
 export HUSKY_REALSENSE_SECONDARY_ENABLED=true # use second realsesne ar rear
 export HUSKY_REALSENSE_SECONDARY_XYZ='-0.1 0 -0.1' # change to real realsense location
 export HUSKY_REALSENSE_SECONDARY_RPY='0 0 3.14159' # change to real realsense RPY
 
 export HUSKY_SENSOR_ARCH_HEIGHT=300
+
+export ENABLE_EKF=true # enable ekf for robot localisation
+
+export SVGA_VGPU10=0 # reduces load on graphics
 ```
+
+# Real Husky
+To launch husky on ASUS PC - ```roslaunch husky_base base.launch``` - launches husky with controller.
+
+To launch husky with IMU and realsense ```roslaunch husky_base husky.launch```
 
 !!! Make sure to close terminal and open new terminal after changing/adding any environment varables before rerunnng ROS. Otherwise ROS will use previouls environment varables. !!!
 

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<!-- launches husky base.launch ans sensors um7 IMU and realsense camera -->
+<launch>
+    <include file="$(find husky_base)/launch/base.launch" />
+
+    <include file="$(find husky_bringup)/launch/um7_config/um7.launch" />
+
+    <include file="$(find husky_bringup)/launch/realsense_config/realsense.launch" />
+</launch>
