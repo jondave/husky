@@ -54,6 +54,8 @@ https://github.com/introlab/rtabmap_ros/issues/459
 https://github.com/introlab/rtabmap_ros/issues/464
 (may need to remove rtabmap_ros from ROS install directory)
 
+To cancel move base goal run ```rosrun husky_control joy_remove_goal.py``` and press B button on controller.
+
 # RViz Satellite
 
 Use Open Street Map in Object URI ```https://tile.openstreetmap.org/{z}/{x}/{y}.png```

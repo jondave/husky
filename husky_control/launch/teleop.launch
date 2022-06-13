@@ -25,4 +25,6 @@
     <node pkg="teleop_twist_joy" type="teleop_node" name="teleop_twist_joy"/>
   </group>
 
+  <node name="joy_remove_goal" pkg="husky_control" type="joy_remove_goal.py" output="screen"/> <!-- include this to cancel move base goals from controller by pressing B button -->
+
 </launch>
