@@ -13,6 +13,9 @@ HUSKY_PORT=/dev/???????? # USB port for the USB to serial cable to husky motor c
 export HUSKY_8BITDO=1
 
 export HUSKY_IMU_PORT=/dev/ttyUSB0
+#export HUSKY_IMU_XYZ='0 0 0' # change to real IMU location
+#export HUSKY_IMU_RPY='0 0 0' # change to real IMU pose/orientation
+
 export HUSKY_NAVSAT_PORT=/dev/ttyACM0
 
 export HUSKY_LASER_3D_ENABLED=true
