@@ -18,10 +18,11 @@ static:
 
 # change to realsense sources
 obstacles_laser:
-    observation_sources: realsense_laser realsense_rear_laser #laser # add / remove lidar laser
+    observation_sources: realsense_laser realsense_rear_laser rtabmap_cloud_obstacles #laser # add / remove lidar laser
     #laser: {data_type: LaserScan, clearing: true, marking: true, topic: scan, inf_is_valid: true}
-    realsense_laser: {data_type: LaserScan, clearing: true, marking: true, topic: realsense/scan, inf_is_valid: true}
-    realsense_rear_laser: {data_type: LaserScan, clearing: true, marking: true, topic: realsense_rear/scan, inf_is_valid: true}
+    realsense_laser: {data_type: LaserScan, clearing: true, marking: true, topic: realsense/scan, inf_is_valid: true, sensor_frame: base_footprint, min_obstacle_height: -99999.0, max_obstacle_height: 99999.0}
+    realsense_rear_laser: {data_type: LaserScan, clearing: true, marking: true, topic: realsense_rear/scan, inf_is_valid: true, sensor_frame: base_footprint, min_obstacle_height: -99999.0, max_obstacle_height: 99999.0}
+    rtabmap_cloud_obstacles: {data_type: PointCloud2, clearing: true, marking: true, topic: rtabmap/cloud_obstacles, sensor_frame: base_footprint, min_obstacle_height: -99999.0, max_obstacle_height: 99999.0}
 
 inflation:
     inflation_radius: 0.5 # default 1.0
