@@ -25,4 +25,4 @@ obstacles_laser:
     rtabmap_cloud_obstacles: {data_type: PointCloud2, clearing: true, marking: true, topic: rtabmap/cloud_obstacles, sensor_frame: base_footprint, min_obstacle_height: -99999.0, max_obstacle_height: 99999.0}
 
 inflation:
-    inflation_radius: 0.5 # default 1.0
+    inflation_radius: 0.2 # default 1.0

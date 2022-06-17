@@ -51,7 +51,9 @@ rtab map needs ```sudo apt install ros-melodic-image-pipeline```
 
 ```map``` is remapped to ```/rtabmap/proj_map``` may need to change back to ```map``` or change in costmap config
 
-Rtab map using depth camera and scan from depth camera ```roslaunch husky_navigation rtab_map_depth.launch```
+Rtab map using depth camera (RGBD image) only (!!use this one as ti detects the row table tops!!) ```roslaunch husky_navigation rtab_map_depth_no_scan.launch```
+
+Rtab map using depth camera and scan from depth camera (this wont detect the row table tops only the poles) ```roslaunch husky_navigation rtab_map_depth.launch```
 
 Rtab map using stereo camera ```roslaunch husky_navigation rtab_map_stereo.launch```
 
