@@ -45,6 +45,12 @@ To launch husky with IMU and realsense ```roslaunch husky_base husky.launch```
 https://www.clearpathrobotics.com/assets/guides/noetic/husky/CustomizeHuskyConfig.html
 !!! Some of the variable names on the clearpath websitte are wrong e.g. realsense orientation offset!!!
 
+Needs:
+
+```sudo apt-get install ros-melodic-imu-pipeline```
+and
+```sudo apt-get install ros-melodic-imu-tools```
+
 # RTAB Map
 
 rtab map needs ```sudo apt install ros-melodic-image-pipeline```

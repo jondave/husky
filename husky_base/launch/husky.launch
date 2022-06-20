@@ -5,9 +5,12 @@
 
     <include file="$(find husky_bringup)/launch/um7_config/um7.launch" />
 
+    <include file="$(find husky_bringup)/launch/navsat_config/ublox_holybro.launch" />
+
     <include file="$(find husky_bringup)/launch/realsense_config/realsense.launch" />
 
     <group if="$(optenv HUSKY_REALSENSE_SECONDARY_ENABLED 0)" >
       <include file="$(find husky_bringup)/launch/realsense_config/realsense_rear.launch" />
+      <node pkg="tf" type="static_transform_publisher" name="realsense_rear_link_broadcaster" args="0 0 0 3.14159 0 0 sensor_arch_mount_link realsense_rear_rotated_link 100" />
     </group>
-    </launch>
+</launch>

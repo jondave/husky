@@ -7,7 +7,8 @@
   <arg name="tf_prefix"           default="$(arg camera)"/>
   <arg name="external_manager"    default="false"/>
   <arg name="manager"             default="realsense2_camera_manager"/>
-  <arg name="base_frame_id"       default="$(optenv HUSKY_REALSENSE_MOUNT_FRAME sensor_arch_mount_link)" />
+  <!--<arg name="base_frame_id"       default="$(optenv HUSKY_REALSENSE_SECONDARY_MOUNT_FRAME realsense_rear_rotated_link)" />-->
+  <arg name="base_frame_id"       default="realsense_rear_rotated_link" />
   <arg name="output"              default="screen"/>
   <arg name="respawn"             default="false"/>
 
@@ -138,7 +139,7 @@
       <remap from="scan" to="realsense_rear/scan"/>
       <!-- TODO: modify these to match the Realsense D400 series parameters -->
       <rosparam>
-          target_frame: base_link # Leave empty to output scan in the pointcloud frame
+          target_frame: realsense_rear_rotated_link # Leave empty to output scan in the pointcloud frame
           tolerance: 1.0
           min_height: 0.05
           max_height: 1.0

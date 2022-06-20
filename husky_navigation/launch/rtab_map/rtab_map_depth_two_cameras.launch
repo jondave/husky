@@ -19,10 +19,10 @@
   </group>
 
   <group ns="$(arg camera2)">
-    <node pkg="nodelet" type="nodelet" name="rgbd_sync" args="standalone rtabmap_ros/rgbd_sync" output="screen">
+    <node pkg="nodelet" type="nodelet" name="rgbd_sync2" args="standalone rtabmap_ros/rgbd_sync" output="screen">
       <remap from="rgb/image"       to="color/image_raw"/>
       <remap from="depth/image"     to="depth/image_rect_raw"/>
-      <remap from="rgb/camera_info" to="camera_info"/>
+      <remap from="rgb/camera_info" to="color/camera_info"/>
       <remap from="rgbd_image"      to="rgbd_image"/> <!-- output -->
       
       <!-- Should be true for not synchronized camera topics  (e.g., false for kinectv2, zed, realsense, true for xtion, kinect360)-->
@@ -54,12 +54,10 @@
       <param name="queue_size" type="int" value="50"/>
 
       <!-- RTAB-Map's parameters -->
-      <param name="RGBD/ProximityBySpace"     type="string" value="false"/>
-      <param name="RGBD/AngularUpdate"        type="string" value="0.01"/>
-      <param name="RGBD/LinearUpdate"         type="string" value="0.01"/>
-      <param name="RGBD/OptimizeFromGraphEnd" type="string" value="false"/>
-      <param name="Reg/Force3DoF"             type="string" value="true"/>
-      <param name="Vis/MinInliers"            type="string" value="12"/>
+      <param name="Grid/FromDepth"     type="string" value="false"/>
+      <param name="Vis/EstimationType" type="string" value="0"/> <!-- should be 0 for multi-cameras -->
+      <param name="Vis/MinInliers"     type="string" value="10"/>
+      <param name="Vis/InlierDistance" type="string" value="0.02"/>
 
       <param name="approx_sync"               type="bool" value="true"/>
     </node>
