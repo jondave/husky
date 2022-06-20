@@ -6,4 +6,8 @@
     <include file="$(find husky_bringup)/launch/um7_config/um7.launch" />
 
     <include file="$(find husky_bringup)/launch/realsense_config/realsense.launch" />
-</launch>
+
+    <group if="$(optenv HUSKY_REALSENSE_SECONDARY_ENABLED 0)" >
+      <include file="$(find husky_bringup)/launch/realsense_config/realsense_rear.launch" />
+    </group>
+    </launch>

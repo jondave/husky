@@ -7,26 +7,26 @@
    
   <!-- sync rgb/depth images per camera -->
   <group ns="$(arg camera1)">
-  <node pkg="nodelet" type="nodelet" name="rgbd_sync" args="standalone rtabmap_ros/rgbd_sync camera1_nodelet_manager">
-    <remap from="rgb/image"         to="color/image_raw"/>
-    <remap from="depth/image"       to="depth/image_rect_raw"/>
-    <remap from="rgb/camera_info"   to="color/camera_info"/>
+    <node pkg="nodelet" type="nodelet" name="rgbd_sync" args="standalone rtabmap_ros/rgbd_sync camera1_nodelet_manager">
+      <remap from="rgb/image"         to="color/image_raw"/>
+      <remap from="depth/image"       to="depth/image_rect_raw"/>
+      <remap from="rgb/camera_info"   to="color/camera_info"/>
 
-    <remap from="rgbd_image"        to="rgbd_image"/> <!-- output -->
+      <remap from="rgbd_image"        to="rgbd_image"/> <!-- output -->
 
-    <param name="approx_sync"       type="bool" value="false"/>
-  </node>
+      <param name="approx_sync"       type="bool" value="false"/>
+    </node>
   </group>
   <group ns="$(arg camera2)">
-  <node pkg="nodelet" type="nodelet" name="rgbd_sync" args="standalone rtabmap_ros/rgbd_sync camera2_nodelet_manager">
-    <remap from="rgb/image"         to="color/image_raw"/>
-    <remap from="depth/image"       to="depth/image_rect_raw"/>
-    <remap from="rgb/camera_info"   to="color/camera_info"/>
+    <node pkg="nodelet" type="nodelet" name="rgbd_sync" args="standalone rtabmap_ros/rgbd_sync camera2_nodelet_manager">
+      <remap from="rgb/image"         to="color/image_raw"/>
+      <remap from="depth/image"       to="depth/image_rect_raw"/>
+      <remap from="rgb/camera_info"   to="color/camera_info"/>
 
-    <remap from="rgbd_image"        to="rgbd_image"/> <!-- output -->
+      <remap from="rgbd_image"        to="rgbd_image"/> <!-- output -->
 
-    <param name="approx_sync"       type="bool" value="false"/>
-  </node>
+      <param name="approx_sync"       type="bool" value="false"/>
+    </node>
   </group>
 
   <!-- Visual SLAM -->
