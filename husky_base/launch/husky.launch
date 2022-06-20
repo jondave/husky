@@ -5,7 +5,9 @@
 
     <include file="$(find husky_bringup)/launch/um7_config/um7.launch" />
 
-    <include file="$(find husky_bringup)/launch/navsat_config/ublox_holybro.launch" />
+    <!--<include file="$(find husky_bringup)/launch/navsat_config/ublox_holybro.launch" />-->
+
+    <!--<include file="$(find ntrip_ros)/launch/ntrip_ros.launch" />-->
 
     <include file="$(find husky_bringup)/launch/realsense_config/realsense.launch" />
 
