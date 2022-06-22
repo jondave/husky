@@ -3,6 +3,12 @@ MY NOTES
 
 # switch branch to melodic-devel
 
+Easiest to do;
+```
+cd catkin_ws
+rosdep install --from-paths src --ignore-src -r -y
+```
+
 # Set environment varables in setup.sh
 Use ```opt/ros/melodic/setup.bash``` at bottom add ```export``` environment varables.
 
