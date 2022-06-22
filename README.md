@@ -9,6 +9,8 @@ cd catkin_ws
 rosdep install --from-paths src --ignore-src -r -y
 ```
 
+# 8BitDo controller in D mode
+
 # Set environment varables in setup.sh
 Use ```opt/ros/melodic/setup.bash``` at bottom add ```export``` environment varables.
 
