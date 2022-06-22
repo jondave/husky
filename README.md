@@ -35,6 +35,9 @@ export ENABLE_EKF=true # enable ekf for robot localisation
 export SVGA_VGPU10=0 # reduces load on graphics
 ```
 
+# Asus PN50-E1 Ethernet Port
+TO install driver follow - https://askubuntu.com/questions/1373924/asus-pn50-e1-and-18-04-lts-no-network-adapter
+
 # Real Husky
 To launch husky on ASUS PC - ```roslaunch husky_base base.launch``` - launches husky with controller.
 
