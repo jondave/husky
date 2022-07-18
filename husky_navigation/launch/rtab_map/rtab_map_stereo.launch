@@ -20,7 +20,7 @@
 
   <!--- Run Move Base -->
   <remap from="map" to="/rtabmap/proj_map"/>
-  <include file="$(find husky_navigation)/launch/gps_localisation.launch" />
+  <!--<include file="$(find husky_navigation)/launch/gps_localisation.launch" />-->
   <!--<include file="$(find husky_navigation)/launch/rtab_map/move_base_rtab.launch" />-->
   
   <!-- Run the ROS package stereo_image_proc for image rectification-->
@@ -45,7 +45,7 @@
 			<param name="disparity_range" value="128"/>
 		</node>
 		
-		<!-- Create point cloud for the planner -->
+		<!-- Generate a point cloud from the disparity (stereo) image -->
 		<node pkg="nodelet" type="nodelet" name="disparity2cloud" args="load rtabmap_ros/point_cloud_xyz stereo_nodelet">
 			<remap from="disparity/image"       to="disparity"/>
 			<remap from="disparity/camera_info" to="right/camera_info_throttle"/>
@@ -55,8 +55,9 @@
 			<param name="decimation" type="int" value="4"/>
 			<param name="max_depth" type="double" value="4"/>
 		</node>
+    <!-- Create point cloud (of obstacles for the local planner -->
 		<node pkg="nodelet" type="nodelet" name="obstacles_detection" args="load rtabmap_ros/obstacles_detection stereo_nodelet">
-    			<remap from="cloud" to="cloudXYZ"/>
+      <remap from="cloud" to="cloudXYZ"/>
 			<remap from="obstacles" to="/planner_cloud"/>
 
 			<param name="frame_id" type="string" value="base_link"/>		

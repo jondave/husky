@@ -66,7 +66,7 @@ rtab map needs ```sudo apt install ros-melodic-image-pipeline```
 
 ```map``` is remapped to ```/rtabmap/proj_map``` may need to change back to ```map``` or change in costmap config
 
-Rtab map using depth camera (RGBD image) only (!!use this one as ti detects the row table tops!!) ```roslaunch husky_navigation rtab_map_depth_no_scan.launch```
+Rtab map using depth camera (RGBD image) only (!!use this one as it detects the row table tops!!) ```roslaunch husky_navigation rtab_map_depth_no_scan.launch```
 
 Rtab map using depth camera and scan from depth camera (this wont detect the row table tops only the poles) ```roslaunch husky_navigation rtab_map_depth.launch```
 
@@ -79,6 +79,13 @@ Need to git clone rtab_ros package into catkin workspace and make with this vari
 https://github.com/introlab/rtabmap_ros/issues/459
 https://github.com/introlab/rtabmap_ros/issues/464
 (may need to remove rtabmap_ros from ROS install directory)
+
+# RTAB Map Switching between Mapping and Localization
+It can be convenient after mapping an area to put rtabmap in localization mode to avoid increasing the map size in already mapped areas.
+```
+rosservice call rtabmap/set_mode_localization
+rosservice call rtabmap/set_mode_mapping
+```
 
 To cancel move base goal run ```rosrun husky_control joy_remove_goal.py``` and press B button on controller.
 

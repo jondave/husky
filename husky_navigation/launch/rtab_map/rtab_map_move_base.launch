@@ -1,15 +1,21 @@
 <?xml version="1.0" ?>
 
+<!--see http://wiki.ros.org/rtabmap_ros/Tutorials/StereoOutdoorNavigation -->
+
 <launch>
-
-  <node pkg="move_base" type="move_base" name="move_base" output="screen">
-    <param name="controller_frequency" value="10.0"/>
-
-    <rosparam file="$(find husky_gazebo)/config/move_base_rtab/costmap_common_params.yaml" command="load" ns="global_costmap" />
-    <rosparam file="$(find husky_gazebo)/config/move_base_rtab/costmap_common_params.yaml" command="load" ns="local_costmap" />
-    <rosparam file="$(find husky_gazebo)/config/move_base_rtab/local_costmap_params.yaml" command="load" />
-    <rosparam file="$(find husky_gazebo)/config/move_base_rtab/global_costmap_params.yaml" command="load" />
-    <rosparam file="$(find husky_gazebo)/config/move_base_rtab/base_local_planner_params.yaml" command="load" />
+  
+  <!-- <group ns="planner"> -->
+  <remap from="openni_points" to="/planner_cloud"/>
+  <remap from="map" to="/rtabmap/proj_map"/>
+  <remap from="move_base_simple/goal" to="/planner_goal"/>
+      
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+    <rosparam file="$(find husky_navigation)/config/rtab_map/costmap_common.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find husky_navigation)/config/rtab_map/costmap_common.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find husky_navigation)/config/rtab_map/local_costmap.yaml" command="load" />
+    <rosparam file="$(find husky_navigation)/config/rtab_map/global_costmap.yaml" command="load" />
+    <rosparam file="$(find husky_navigation)/config/rtab_map/base_local_planner.yaml" command="load" />
   </node>
+  <!--</group>-->
 
 </launch>
