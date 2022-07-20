@@ -46,6 +46,9 @@ export SVGA_VGPU10=0 # reduces load on graphics
 # Asus PN50-E1 Ethernet Port
 TO install driver follow - https://askubuntu.com/questions/1373924/asus-pn50-e1-and-18-04-lts-no-network-adapter
 
+# catkin_ws files
+![image](https://user-images.githubusercontent.com/6209386/179963821-c099ed4f-cd42-4d43-9ed4-e1773724fc80.png)
+
 # Real Husky
 To launch husky on ASUS PC - ```roslaunch husky_base base.launch``` - launches husky with controller.
 
