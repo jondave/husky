@@ -1,3 +1,4 @@
+# higher number = higher priority
 topics:
 - name    : joy
   topic   : joy_teleop/cmd_vel
@@ -11,6 +12,10 @@ topics:
   topic   : cmd_vel
   timeout : 0.5
   priority: 1
+- name    : bearnav
+  topic   : bearnav/cmd_vel
+  timeout : 0.5
+  priority: 2
 locks:
 - name    : e_stop
   topic   : e_stop

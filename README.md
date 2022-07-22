@@ -38,7 +38,8 @@ export HUSKY_REALSENSE_SECONDARY_RPY='0 0 3.14159' # change to real realsense RP
 
 export HUSKY_SENSOR_ARCH_HEIGHT=300
 
-export ENABLE_EKF=true # enable ekf for robot localisation
+#export ENABLE_EKF=true # enable ekf for robot localisation
+export ENABLE_EKF_GPS=true # enable ekf with GPS odom for robot localisation
 
 export SVGA_VGPU10=0 # reduces load on graphics
 ```
