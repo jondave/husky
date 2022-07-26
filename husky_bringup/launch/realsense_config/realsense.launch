@@ -1,5 +1,5 @@
 <launch>
-  <arg name="serial_no"           default="$(optenv HUSKY_REALSENSE_SERIAL 112322070028)"/>
+  <arg name="serial_no"           default="$(optenv HUSKY_REALSENSE_SERIAL 141722073232)"/> <!-- 112322070028 -->
   <arg name="usb_port_id"         default=""/>
   <arg name="device_type"         default=""/>
   <arg name="json_file_path"      default=""/>
