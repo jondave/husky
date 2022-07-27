@@ -96,6 +96,8 @@ rosservice call rtabmap/set_mode_localization
 rosservice call rtabmap/set_mode_mapping
 ```
 
+Rtab map saves maps as a database ```.db``` file in ```.ros```, to view databases use ```rtabmap-databaseViewer ~/.ros/rtabmap.db```
+
 To cancel move base goal run ```rosrun husky_control joy_remove_goal.py``` and press B button on controller.
 
 # RViz Satellite
