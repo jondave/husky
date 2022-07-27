@@ -9,10 +9,16 @@
 
     <include file="$(find ntrip_ros)/launch/ntrip_ros.launch" />
 
-    <include file="$(find husky_bringup)/launch/realsense_config/realsense.launch" />
+    <group if="$(optenv HUSKY_REALSENSE_ENABLED 0)" > <!-- if enviorment variable is true run group, default is 0 == false-->
+      <include file="$(find husky_bringup)/launch/realsense_config/realsense.launch" />
+    </group>
 
     <group if="$(optenv HUSKY_REALSENSE_SECONDARY_ENABLED 0)" >
       <include file="$(find husky_bringup)/launch/realsense_config/realsense_rear.launch" />
       <node pkg="tf" type="static_transform_publisher" name="realsense_rear_link_broadcaster" args="0 0 0 3.14159 0 0 sensor_arch_mount_link realsense_rear_rotated_link 100" />
+    </group>
+
+    <group if="$(optenv HUSKY_ZED_CAMERA_ENABLED 0)" >
+      <include file="$(find husky_bringup)/launch/zed_camera_config/zed_camera.launch" />
     </group>
 </launch>

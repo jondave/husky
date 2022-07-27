@@ -4,7 +4,7 @@
   <arg name="multimaster" default="$(optenv ROBOT_MULTIMASTER false)"/>
   <arg name="simulation" default="$(optenv ROBOT_SIMULATION false)"/>
   <arg name="robot_namespace" default="$(optenv ROBOT_NAMESPACE robot)"/>
-  <arg name="enable_ekf" default="$(optenv ENABLE_EKF true)"/>
+  <arg name="enable_ekf" default="$(optenv ENABLE_EKF false)"/>
   <arg name="enable_ekf_gps" default="$(optenv ENABLE_EKF_GPS true)"/>
 
   <arg name="config_extras"
@@ -32,11 +32,11 @@
   </rosparam>
 
   <!-- Start EKF for localization -->
-  <!--<group if="$(arg enable_ekf)" >
+  <group if="$(arg enable_ekf)" >
     <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization">
       <rosparam command="load" file="$(find husky_control)/config/localization.yaml" />
     </node>
-  </group>-->
+  </group>
 
   <!-- added code for using GPS in ekf locaisation -->
   <group if="$(arg enable_ekf_gps)" >

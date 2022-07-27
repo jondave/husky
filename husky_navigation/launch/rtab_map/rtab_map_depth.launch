@@ -1,6 +1,8 @@
 <launch>
 
   <arg name="camera" default="/realsense"/>
+
+  <arg name="localization" default="false"/>
   <!--- Run Move Base -->
   <!--<include file="$(find husky_navigation)/launch/rtab_map/move_base_rtab.launch" />-->
 
@@ -17,7 +19,7 @@
 
   <!-- SLAM -->
   <group ns="rtabmap">
-    <node name="rtabmap" pkg="rtabmap_ros" type="rtabmap" output="screen" args="--delete_db_on_start">
+    <node name="rtabmap" pkg="rtabmap_ros" type="rtabmap" output="screen">  <!-- args="-#-delete_db_on_start" -->
       <param name="frame_id" type="string" value="base_link"/>
 
       <param name="subscribe_depth" type="bool" value="true"/>
@@ -47,6 +49,11 @@
       <param name="Vis/MinInliers"            type="string" value="12"/>
 
       <param name="approx_sync"               type="bool" value="true"/>
+
+      <!-- localization mode -->
+      <param     if="$(arg localization)" name="Mem/IncrementalMemory" type="string" value="false"/>
+      <param unless="$(arg localization)" name="Mem/IncrementalMemory" type="string" value="true"/>
+      <param name="Mem/InitWMWithAllNodes" type="string" value="$(arg localization)"/>
     </node>
   </group>
 </launch>

@@ -27,6 +27,15 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCL
 
   <arg name="no_static_map" default="false"/>
 
+  <group unless="$(arg no_static_map)" > 
+    <!-- Run the map server if no_static_map = false -->
+    <arg name="map_file" default="$(find husky_navigation)/maps/riseholme_no_go_map.yaml"/>
+    <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)">
+       <remap from="map" to="/rtabmap/proj_map"/>
+    </node>
+    
+  </group>
+
   <arg name="base_global_planner" default="navfn/NavfnROS"/>
   <arg name="base_local_planner" default="dwa_local_planner/DWAPlannerROS"/>
   <!-- <arg name="base_local_planner" default="base_local_planner/TrajectoryPlannerROS"/> -->

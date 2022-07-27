@@ -1,6 +1,6 @@
 <launch>
 
-  <arg name="camera" default="/realsense"/>
+  <arg name="camera" default="/realsense"/> <!-- /stereo_camera -->
 
   <!-- ROS navigation stack move_base -->
   <!--<group ns="planner">
@@ -90,7 +90,7 @@
 
   <group ns="rtabmap">   
     <!-- Visual SLAM: args: "delete_db_on_start" and "udebug" -->
-    <node name="rtabmap" pkg="rtabmap_ros" type="rtabmap" output="screen" args="--delete_db_on_start">
+    <node name="rtabmap" pkg="rtabmap_ros" type="rtabmap" output="screen" >  <!-- args="-#-delete_db_on_start" 
       <param name="frame_id" type="string" value="base_link"/>
       <param name="subscribe_stereo" type="bool" value="true"/>
       <param name="subscribe_depth" type="bool" value="false"/>
@@ -119,6 +119,11 @@
 
       <param name="LccReextract/Activated" type="string" value="true"/>
       <param name="LccReextract/MaxWords" type="string" value="500"/>
+
+      <!-- localization mode -->
+      <param     if="$(arg localization)" name="Mem/IncrementalMemory" type="string" value="false"/>
+      <param unless="$(arg localization)" name="Mem/IncrementalMemory" type="string" value="true"/>
+      <param name="Mem/InitWMWithAllNodes" type="string" value="$(arg localization)"/>
     </node>
    </group>
 

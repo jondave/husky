@@ -1,0 +1,122 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:macro name="zed_camera_mount" params="prefix topic parent_link">
+
+    <xacro:macro name="zed_camera" params="
+                frame:=stereo_camera      topic:=stereo_camera
+                h_fov:=1.91986            v_fov:=1.22173
+                width:=640                height:=480
+                update_rate:=30
+                robot_namespace:=/">
+
+      <!-- this link is the origin for the camera's data -->
+      <link name="${frame}" />
+
+      <!--
+        The gazebo plugin aligns the depth data with the Z axis, with X=left and Y=up
+        ROS expects the depth data along the X axis, with Y=left and Z=up
+        This link only exists to give the gazebo plugin the correctly-oriented frame
+      -->
+      <link name="${frame}_gazebo" />
+      <joint name="${frame}_gazebo_joint" type="fixed">
+        <parent link="${frame}"/>
+        <child link="${frame}_gazebo"/>
+        <origin xyz="0.0 0 0" rpy="0 0 0"/>
+      </joint>
+
+      <!-- Stereo Camera Sensor Start -->
+      <!-- chage camera lens seperation distances to real values -->
+
+      <gazebo reference="${frame}">
+          <sensor type="multicamera" name="${frame}">
+              <update_rate>30.0</update_rate>
+              <camera name="left">
+                  <pose>0 0.06 0 0 0 0</pose> <!-- x y z r p y --> <!-- ZED 2 lenses are 12cm apart -->
+                
+                  <!-- 110x70 degree FOV for ZED 2 -->
+                  <horizontal_fov>${h_fov}</horizontal_fov>
+                  <vertical_fov>${v_fov}</vertical_fov>
+                  <image>
+                      <width>${width}</width>
+                      <height>${height}</height>
+                      <format>R8G8B8</format>
+                  </image>
+                  <clip>
+                      <near>0.02</near>
+                      <far>300</far>
+                  </clip>
+                  <noise>
+                      <type>gaussian</type>
+                      <mean>0.0</mean>
+                      <stddev>0.007</stddev>
+                  </noise>
+              </camera>
+              <camera name="right">
+                  <pose>0 -0.06 0 0 0 0</pose> <!-- x y z r p y --> <!-- ZED 2 lenses are 12cm apart -->
+                  
+                  <!-- 110x70 degree FOV for ZED 2 -->
+                  <horizontal_fov>${h_fov}</horizontal_fov>
+                  <vertical_fov>${v_fov}</vertical_fov>
+                  <image>
+                      <width>${width}</width>
+                      <height>${height}</height>
+                      <format>R8G8B8</format>
+                  </image>
+                  <clip>
+                      <near>0.02</near>
+                      <far>300</far>
+                  </clip>
+                  <noise>
+                      <type>gaussian</type>
+                      <mean>0.0</mean>
+                      <stddev>0.007</stddev>
+                  </noise>
+              </camera>
+              <plugin name="stereo_camera_controller" filename="libgazebo_ros_multicamera.so">
+                  <alwaysOn>true</alwaysOn>
+                  <updateRate>${update_rate}</updateRate>
+                  <cameraName>${topic}</cameraName>
+                  <imageTopicName>image_raw</imageTopicName>
+                  <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+                  <frameName>${frame}_gazebo</frameName>
+                  <!--<rightFrameName>right_camera_optical_frame</rightFrameName>-->
+                  <hackBaseline>0.07</hackBaseline>
+                  <distortionK1>0.0</distortionK1>
+                  <distortionK2>0.0</distortionK2>
+                  <distortionK3>0.0</distortionK3>
+                  <distortionT1>0.0</distortionT1>
+                  <distortionT2>0.0</distortionT2>
+              </plugin>
+          </sensor>
+      </gazebo>
+    </xacro:macro>
+
+    <!-- Stereo Camera Sensor End -->
+
+    <link name="${prefix}_zed_camera_lens">
+      <visual>
+        <origin xyz="0.02 0 0" rpy="0 0 0" />
+        <geometry>
+          <!--<mesh filename="package://husky_description/meshes/accessories/zed_camera.stl" />-->
+          <box size="0.033 0.175 0.03"/>
+        </geometry>
+        <material name="white" />
+      </visual>
+    </link>
+
+    <joint type="fixed" name="${prefix}_zed_camera_lens_joint">
+      <!-- Offset the camera 2cm backwards and 1cm up -->
+      <origin xyz="-0.02 0 0.01" rpy="0 0 0" />
+      <parent link="${parent_link}" />
+      <child link="${prefix}_zed_camera_lens" />
+    </joint>
+    <joint type="fixed" name="${prefix}_zed_camera_joint">
+      <origin xyz="0.025 0 0" rpy="0 0 0" />
+      <parent link="${prefix}_zed_camera_lens" />
+      <child link="${prefix}_zed_camera" />
+    </joint>
+
+    <xacro:zed_camera frame="${prefix}_zed_camera" topic="${topic}"/>
+  </xacro:macro>
+  
+</robot>

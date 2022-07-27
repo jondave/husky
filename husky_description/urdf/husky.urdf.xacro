@@ -63,6 +63,13 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
   <xacro:arg name="realsense_rear_mount" default="$(optenv HUSKY_REALSENSE_SECONDARY_MOUNT_FRAME sensor_arch_mount_link)" />
   <!-- added code for second realsense camera -->
 
+  <!-- added code for zed camera -->
+  <xacro:arg name="zed_camera_enabled" default="$(optenv HUSKY_ZED_CAMERA_ENABLED 0)" />
+  <xacro:arg name="zed_camera_xyz" default="$(optenv HUSKY_ZED_CAMERA_XYZ 0 0 0)" />
+  <xacro:arg name="zed_camera_rpy" default="$(optenv HUSKY_ZED_CAMERA_RPY 0 0 0)" />
+  <xacro:arg name="zed_camera_mount" default="$(optenv HUSKY_ZED_CAMERA_MOUNT_FRAME sensor_arch_mount_link)" />
+  <!-- added code for zed camera -->
+
   <xacro:property name="husky_front_bumper_extend" value="$(optenv HUSKY_FRONT_BUMPER_EXTEND 0)" />
   <xacro:property name="husky_rear_bumper_extend" value="$(optenv HUSKY_REAR_BUMPER_EXTEND 0)" />
 
@@ -80,6 +87,7 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
 
   <!--<xacro:include filename="$(find husky_description)/urdf/accessories/intel_realsense.urdf.xacro"/>-->
   <xacro:include filename="$(find husky_description)/urdf/accessories/intel_realsense_color_stereo.urdf.xacro"/>
+  <xacro:include filename="$(find husky_description)/urdf/accessories/zed_camera.urdf.xacro"/> <!-- added code -->
   <xacro:include filename="$(find husky_description)/urdf/accessories/sick_lms1xx_mount.urdf.xacro"/>
   <xacro:include filename="$(find husky_description)/urdf/accessories/sensor_arch.urdf.xacro"/>
   <xacro:include filename="$(find husky_description)/urdf/accessories/hokuyo_ust10.urdf.xacro"/>
@@ -220,8 +228,9 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
   -->
   <xacro:property name="sensorbar_user_enabled"     value="$(arg sensor_arch)" />
   <xacro:property name="sensorbar_needed_realsense" value="$(arg realsense_enabled)" />
+  <xacro:property name="sensorbar_needed_zed_camera" value="$(arg zed_camera_enabled)" />
   <xacro:property name="sensorbar_needed_lidar"     value="$(arg laser_3d_enabled)" />
-  <xacro:if value="${sensorbar_needed_realsense or sensorbar_user_enabled or sensorbar_needed_lidar}">
+  <xacro:if value="${sensorbar_needed_realsense or sensorbar_user_enabled or sensorbar_needed_lidar or sensorbar_needed_zed_camera}">
     <xacro:sensor_arch prefix="" parent="top_plate_link" size="$(arg sensor_arch_height)">
         <origin xyz="$(optenv HUSKY_SENSOR_ARCH_OFFSET 0 0 0)" rpy="$(optenv HUSKY_SENSOR_ARCH_RPY 0 0 0)"/>
       </xacro:sensor_arch>
@@ -248,6 +257,19 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
       <child link="realsense_rear_mountpoint" />
     </joint>
     <xacro:intel_realsense_mount prefix="camera_rear" topic="realsense_rear" parent_link="realsense_rear_mountpoint"/>
+  </xacro:if>
+  <!-- added code -->
+
+  <!-- added code -->
+  <!-- add the zed stereo camera to the sensor arch if needed -->
+  <xacro:if value="$(arg zed_camera_enabled)">
+    <link name="zed_camera_mountpoint"/>
+    <joint name="zed_camera_mountpoint_joint" type="fixed">
+      <origin xyz="$(arg zed_camera_xyz)" rpy="$(arg zed_camera_rpy)" />
+      <parent link="$(arg zed_camera_mount)"/>
+      <child link="zed_camera_mountpoint" />
+    </joint>
+    <xacro:zed_camera_mount prefix="stereo_camera" topic="stereo_camera" parent_link="zed_camera_mountpoint"/>
   </xacro:if>
   <!-- added code -->
 
