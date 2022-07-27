@@ -36,6 +36,9 @@ export HUSKY_REALSENSE_SECONDARY_ENABLED=true # use second realsesne ar rear
 export HUSKY_REALSENSE_SECONDARY_XYZ='-0.1 0 -0.1' # change to real realsense location
 export HUSKY_REALSENSE_SECONDARY_RPY='0 0 3.14159' # change to real realsense RPY
 
+#export HUSKY_ZED_CAMERA_ENABLED=true
+#export HUSKY_ZED_CAMERA_XYZ='0.3 0 -0.05'
+
 export HUSKY_SENSOR_ARCH_HEIGHT=300
 
 #export ENABLE_EKF=true # enable ekf for robot localisation
