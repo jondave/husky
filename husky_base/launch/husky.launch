@@ -5,9 +5,11 @@
 
     <include file="$(find husky_bringup)/launch/um7_config/um7.launch" />
 
-    <include file="$(find husky_bringup)/launch/navsat_config/ublox_holybro.launch" />
+    <group if="$(optenv ENABLE_EKF_GPS 0)" >
+      <include file="$(find husky_bringup)/launch/navsat_config/ublox_holybro.launch" />
 
-    <include file="$(find ntrip_ros)/launch/ntrip_ros.launch" />
+      <include file="$(find ntrip_ros)/launch/ntrip_ros.launch" />
+    </group>
 
     <group if="$(optenv HUSKY_REALSENSE_ENABLED 0)" > <!-- if enviorment variable is true run group, default is 0 == false-->
       <include file="$(find husky_bringup)/launch/realsense_config/realsense.launch" />
