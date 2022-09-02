@@ -96,9 +96,21 @@ rosservice call rtabmap/set_mode_localization
 rosservice call rtabmap/set_mode_mapping
 ```
 
-Rtab map saves maps as a database ```.db``` file in ```.ros```, to view databases use ```rtabmap-databaseViewer ~/.ros/rtabmap.db```
-
 To cancel move base goal run ```rosrun husky_control joy_remove_goal.py``` and press B button on controller.
+
+# Rtab Save Map
+
+Rtab map saves its images and maps as a database ```.db``` file in ```.ros``` directory, to view databases use ```rtabmap-databaseViewer ~/.ros/rtabmap.db```
+
+To load Rtab map database copy the ```.db``` file into the ```~/.ros/``` directory, then run Rtab map launch files.
+
+Loading the ```.db``` file also loads the occupancy grid map
+
+Use ROS map server to save occupancy grid map and cost maps. e.g. ```rosrun map_server map_saver -f <map name>```, to save if map topic different use ```map:=<path to cost map``` e.g. ```rosrun map_server map_saver -f <map name> map:=/move_base/global_costmap/costmap```
+
+To load occupancy grid map ```rosrun map_server map_server <map name>.yaml```
+
+To load pre-existing Riseholme occupancy grid map ```catkin_ws/src/husky/husky_navigation/maps$ rosrun map_server map_server riseholme_map.yaml map:=/rtabmap/proj_map```
 
 # RViz Satellite
 

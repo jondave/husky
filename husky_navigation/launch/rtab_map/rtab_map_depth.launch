@@ -3,6 +3,8 @@
   <arg name="camera" default="/realsense"/>
 
   <arg name="localization" default="false"/>
+  <!--<arg name="localization" default="true"/>-->
+  
   <!--- Run Move Base -->
   <!--<include file="$(find husky_navigation)/launch/rtab_map/move_base_rtab.launch" />-->
 
