@@ -70,7 +70,6 @@ and
 ```sudo apt-get install ros-melodic-imu-tools```
 
 # RTAB Map
-
 - rtab map needs ```sudo apt install ros-melodic-image-pipeline```
 - ```sudo apt install ros-melodic-rtabmap```
 - For single cameras use ```sudo apt install ros-melodic-rtabmap-ros```
