@@ -71,7 +71,14 @@ and
 
 # RTAB Map
 
-rtab map needs ```sudo apt install ros-melodic-image-pipeline```
+- rtab map needs ```sudo apt install ros-melodic-image-pipeline```
+- ```sudo apt install ros-melodic-rtabmap```
+- For single cameras use ```sudo apt install ros-melodic-rtabmap-ros```
+- For multi camaera use:
+- For melodic ```git clone https://github.com/introlab/rtabmap_ros.git``` 
+- For other use distro devel branches ```git clone -b $ROS_DISTRO-devel https://github.com/introlab/rtabmap_ros.git```
+- ```catkin_make -DRTABMAP_SYNC_MULTI_RGBD=ON ```
+
 
 ```map``` is remapped to ```/rtabmap/proj_map``` may need to change back to ```map``` or change in costmap config
 
