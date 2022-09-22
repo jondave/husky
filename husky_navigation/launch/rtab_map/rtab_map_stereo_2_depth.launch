@@ -4,32 +4,14 @@
     Takes depth map and generates laserscan
     -->
 
-  <arg name="camera" default="/realsense"/>
+  <!--<arg name="camera" default="/realsense"/>-->
+  <arg name="camera" default="/stereo_camera"/>
 
-  <!-- ROS navigation stack move_base -->
-  <!--<group ns="planner">
-      <remap from="openni_points" to="/planner_cloud"/>
-      <remap from="base_scan" to="/base_scan"/>
-      <remap from="map" to="/rtabmap/proj_map"/>
-      <remap from="move_base_simple/goal" to="/planner_goal"/>
-      
-      <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
-      <rosparam file="$(find rtabmap_ros)/launch/azimut3/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
-      <rosparam file="$(find rtabmap_ros)/launch/azimut3/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
-      <rosparam file="$(find rtabmap_ros)/launch/azimut3/config/local_costmap_params_3d.yaml" command="load" />
-      <rosparam file="$(find rtabmap_ros)/launch/azimut3/config/global_costmap_params.yaml" command="load" ns="global_costmap"/>
-      <rosparam file="$(find rtabmap_ros)/launch/azimut3/config/base_local_planner_params.yaml" command="load" />
-    </node>
-  </group>-->
-
-  <!--- Run Move Base -->
-  <remap from="map" to="/rtabmap/proj_map"/>
-  <!--<include file="$(find husky_navigation)/launch/gps_localisation.launch" />-->
-  <!--<include file="$(find husky_navigation)/launch/rtab_map/move_base_rtab.launch" />-->
+  <arg name="localization" default="false"/>
   
   <!-- Run the ROS package stereo_image_proc for image rectification-->
 	<group ns="$(arg camera)" >
-	    <node pkg="nodelet" type="nodelet" name="stereo_nodelet"  args="manager"/>
+    <node pkg="nodelet" type="nodelet" name="stereo_nodelet"  args="manager"/>
 		<!-- HACK: the fps parameter on camera1394stereo_node doesn't work for my camera!?!? Throttle camera images -->
 		<node pkg="nodelet" type="nodelet" name="stereo_throttle" args="load rtabmap_ros/stereo_throttle stereo_nodelet">
 			<remap from="left/image"       to="left/image_raw"/>
@@ -55,9 +37,10 @@
       <remap from="depth_raw"    to="disparity2depth/depth_raw"/>
     </node>
   </group>
-	
-	<!-- Visual Odometry -->
-	<node pkg="rtabmap_ros" type="stereo_odometry" name="stereo_odometry" output="screen">
+
+  <!-- Visual Odometry -->
+  <!-- if used add to odom filtered ekf -->
+  <!--<node pkg="rtabmap_ros" type="stereo_odometry" name="stereo_odometry" output="screen">
     <remap from="left/image_rect"       to="$(arg camera)/left/image_rect"/>
     <remap from="right/image_rect"      to="$(arg camera)/right/image_rect"/>
     <remap from="left/camera_info"      to="$(arg camera)/left/camera_info_throttle"/>
@@ -71,10 +54,10 @@
     <param name="Odom/MinInliers" type="string" value="10"/>
     <param name="Odom/RoiRatios" type="string" value="0.03 0.03 0.04 0.04"/>
     <param name="Odom/MaxDepth" type="string" value="10"/>
-    
+
     <param name="GFTT/MaxCorners" type="string" value="500"/>
     <param name="GFTT/MinDistance" type="string" value="5"/>
-	</node>
+  </node>-->
 
   <group ns="rtabmap">   
     <!-- Visual SLAM: args: "delete_db_on_start" and "udebug" -->
@@ -89,6 +72,7 @@
       <remap from="depth/image"     to="$(arg camera)/disparity2depth/depth"/>
 
       <remap from="odom" to="/odometry/filtered"/>
+      <remap from="gps/fix" to="/navsat/fix"/>
 
       <param name="queue_size" type="int" value="30"/>
 
@@ -115,10 +99,10 @@
   <node pkg="depthimage_to_laserscan" type="depthimage_to_laserscan" name="depthimage_to_laserscan" output="screen">
 
     <!-- change here for your camera depth topic name. Default: "/camera/depth/image_raw" -->
-    <remap from="image" to="/realsense/disparity2depth/depth"/>
+    <remap from="image" to="$(arg camera)/disparity2depth/depth_raw"/>
     
     <!-- the remap for camera_info by default uses the same path as the one given to the image topic. Default: "<path_to_image_topic>/camera_info>" -->  
-    <remap from="camera_info" to="/realsense/left/camera_info_throttle"/>
+    <remap from="camera_info" to="$(arg camera)/left/camera_info"/>
 
     <!-- remap output scan name -->  
     <remap from="scan" to="/depthimage_to_laserscan/scan"/>

@@ -2,8 +2,6 @@
 
   <arg name="camera1" default="/realsense"/>
   <arg name="camera2" default="/realsense_rear"/>
-  <!--- Run Move Base -->
-  <!--<include file="$(find husky_navigation)/launch/rtab_map/move_base_rtab.launch" />-->
 
   <!-- rgbd sync -->
   <group ns="$(arg camera1)">
