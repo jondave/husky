@@ -43,7 +43,7 @@
   <!-- 
     Usage of enable_pointcloud=true is deprecated, use filters=pointcloud instead
   -->
-  <arg name="enable_pointcloud"         default="false"/>
+  <arg name="enable_pointcloud"         default="true"/>
   <arg name="filters"                   default="pointcloud"/>
   <arg name="pointcloud_texture_stream" default="RS2_STREAM_COLOR"/>
   <arg name="pointcloud_texture_index"  default="0"/>
