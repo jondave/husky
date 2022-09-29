@@ -10,23 +10,23 @@
   <arg name="output"              default="screen"/>
   <arg name="respawn"              default="false"/>
 
-  <arg name="fisheye_width"       default="640"/>
-  <arg name="fisheye_height"      default="480"/>
+  <arg name="fisheye_width"       default="1280"/>
+  <arg name="fisheye_height"      default="720"/>
   <arg name="enable_fisheye"      default="true"/>
 
-  <arg name="depth_width"         default="640"/>
-  <arg name="depth_height"        default="480"/>
+  <arg name="depth_width"         default="1280"/>
+  <arg name="depth_height"        default="720"/>
   <arg name="enable_depth"        default="true"/>
 
-  <arg name="infra_width"         default="640"/>
-  <arg name="infra_height"        default="480"/>
+  <arg name="infra_width"         default="1280"/>
+  <arg name="infra_height"        default="720"/>
   <arg name="enable_infra"        default="true"/>
   <arg name="enable_infra1"       default="true"/>
   <arg name="enable_infra2"       default="true"/>
   <arg name="infra_rgb"           default="true"/>
 
-  <arg name="color_width"         default="640"/>
-  <arg name="color_height"        default="480"/>
+  <arg name="color_width"         default="1280"/>
+  <arg name="color_height"        default="720"/>
   <arg name="enable_color"        default="true"/>
 
   <arg name="fisheye_fps"         default="30"/>
@@ -54,7 +54,7 @@
   <arg name="publish_tf"                default="true"/>
   <arg name="tf_publish_rate"           default="0"/>
 
-  <arg name="clip_distance"             default="-2"/> <!-- -2 --> <!-- in m -->
+  <arg name="clip_distance"             default="3"/> <!-- -2 --> <!-- in m -->
   <arg name="linear_accel_cov"          default="0.01"/>
   <arg name="initial_reset"             default="false"/>
   <arg name="reconnect_timeout"         default="6.0"/>
@@ -131,22 +131,22 @@
   </group>
 
   <!-- Include poincloud_to_laserscan if realsense is attached -->
-  <!--<node pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" name="realsense_to_laserscan" output="screen">
+  <node pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" name="realsense_to_laserscan" output="screen">
 
       <remap from="cloud_in" to="realsense/depth/color/points"/>
       <remap from="scan" to="realsense/scan"/>
       <rosparam>
           target_frame: base_link # Leave empty to output scan in the pointcloud frame
           tolerance: 1.0
-          min_height: 0.05
-          max_height: 1.0
+          min_height: 0.45
+          max_height: 0.65
 
           angle_min: -0.7592182246175333 # -(87/2))*M_PI/180.0
           angle_max: 0.7592182246175333 # (87/2))*M_PI/180.0
           angle_increment: 0.005 # M_PI/360.0
           scan_time: 0.3333
           range_min: 0.105
-          range_max: 8.0
+          range_max: 3.0
           use_inf: true
 
           # Concurrency level, affects number of pointclouds queued for processing and number of threads used
@@ -155,7 +155,7 @@
           # 2->inf : Parallelism level
           concurrency_level: 1
       </rosparam>
-  </node>-->
+  </node>
 
   <node pkg="tf" type="static_transform_publisher" name="realsense_link_broadcaster" args="0.75 0 0.58 0 0 0 /base_link /realsense_link 100" />
 </launch>
