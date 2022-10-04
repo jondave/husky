@@ -53,6 +53,8 @@
       <param name="Grid/FromDepth"            type="string" value="true"/> <!-- generate occupancy map from depth not laser scan -->
       <param name="Grid/Sensor"               type="string" value="2"/><!-- Create occupancy grid from selected sensor: 0=laser scan, 1=depth image(s) or 2=both laser scan and depth image(s) -->
 
+      <param name="Grid/MaxObstacleHeight"    type="string" value="1"/>
+
       <param name="approx_sync"               type="bool" value="true"/>
 
       <!-- localization mode -->

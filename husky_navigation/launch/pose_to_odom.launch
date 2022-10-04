@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<launch>
+
+  <node name="pose_to_posestamped" pkg="topic_tools" type="transform" 
+  args="/robot_pose /robot_pose_stamped geometry_msgs/PoseStamped
+  'geometry_msgs.msg.PoseStamped (header=std_msgs.msg.Header(
+    stamp=rospy.Time.now(),),
+    pose=m.pose)'
+    --import geometry_msgs std_msgs rospy" />
+
+  <!--<node name="pose_to_odom_node" pkg="husky_navigation" type="pose_to_odom.py" output="screen" />-->
+
+</launch>
