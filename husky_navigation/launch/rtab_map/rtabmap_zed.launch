@@ -26,6 +26,16 @@
     </node>
     -->
 
+    <!-- RTABmapviz -->
+    <node name="rtabmapviz" pkg="rtabmap_ros" type="rtabmapviz" output="screen" args="" launch-prefix="">    
+        <remap from="rgb/image"         to="$(arg rgb_topic)"/>
+        <remap from="depth/image"       to="$(arg depth_topic)"/>
+        <remap from="rgb/camera_info"   to="$(arg camera_info_topic)"/>
+
+        <remap from="grid_map"          to="map" />
+        <remap from="odom"              to="$(arg odom_topic)"/>
+    </node>
+
     <!-- RTABmap -->
     <node name="rtabmap" pkg="rtabmap_ros" type="rtabmap" output="screen" args="$(arg args)" launch-prefix="">
         <rosparam command="load" file="$(find gofar_navigation)/launch/rtabmap/config/rtabmap_zed.yaml" />
