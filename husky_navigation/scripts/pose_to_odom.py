@@ -3,7 +3,7 @@ import rospy
 from sensor_msgs.msg import Imu
 from nav_msgs.msg import Odometry
 import math
-from geometry_msgs.msg import PoseStamped, TransformStamped, Pose
+from geometry_msgs.msg import Pose, TransformStamped
 from tf2_msgs.msg import TFMessage
 import tf
 
@@ -11,6 +11,9 @@ pose = Pose()
 def vicon_cb(data):
     global pose
     pose = data
+
+
+
 
 def quaternion_to_euler_angle(w, x, y, z):
 	ysqr = y * y
@@ -32,8 +35,9 @@ def quaternion_to_euler_angle(w, x, y, z):
 
 rospy.init_node('pose_to_odom')
 
+#rospy.Subscriber('/robot_pose', Pose, robot.robot_pose_callback)  
 vicon_sub = rospy.Subscriber('/robot_pose', Pose, vicon_cb, queue_size=100)
-odom_pub = rospy.Publisher('/odometry/robot_pose', Odometry, queue_size=100)
+odom_pub = rospy.Publisher('/robot_odom_from_pose', Odometry, queue_size=100)
 
 rate = rospy.Rate(50.0)
 counter = 0
@@ -72,14 +76,14 @@ while not rospy.is_shutdown():
         odom.child_frame_id = 'base_link'
         odom.header.stamp = rospy.Time.now()
 
-        odom.pose.position.x = pose.position.x
-        odom.pose.position.y = pose.position.y
-        odom.pose.position.z = pose.position.z
+        odom.pose.pose.position.x = pose.position.x
+        odom.pose.pose.position.y = pose.position.y
+        odom.pose.pose.position.z = pose.position.z
 
-        odom.pose.orientation.x = pose.orientation.x
-        odom.pose.orientation.y = pose.orientation.y
-        odom.pose.orientation.z = pose.orientation.z
-        odom.pose.orientation.w = pose.orientation.w
+        odom.pose.pose.orientation.x = pose.orientation.x
+        odom.pose.pose.orientation.y = pose.orientation.y
+        odom.pose.pose.orientation.z = pose.orientation.z
+        odom.pose.pose.orientation.w = pose.orientation.w
 
         odom.twist.twist.linear.x = twist_x
         odom.twist.twist.linear.y = twist_y
@@ -94,7 +98,7 @@ while not rospy.is_shutdown():
 
         odom_pub.publish(odom)
 
-        #br = tf.TransformBroadcaster()
+        br = tf.TransformBroadcaster()
         #br.sendTransform((x,y,z),[pose.orientation.x, pose.orientation.y,pose.orientation.z,pose.orientation.w],rospy.Time.now(), "base_link","odom")
 
     else:
