@@ -4,7 +4,10 @@
 
   <arg name="localization" default="false"/>
   <!--<arg name="localization" default="true"/>-->
-  
+
+  <!-- robot_pose to odom publishes /robot_odom_from_pose -->
+  <node name="robot_pose_to_odom" pkg="husky_navigation" type="pose_to_odom.py" output="screen"/>
+
   <!-- rgbd sync -->
   <node pkg="nodelet" type="nodelet" name="rgbd_sync" args="standalone rtabmap_ros/rgbd_sync" output="screen">
     <remap from="rgb/image"       to="/$(arg camera)/color/image_raw"/>
@@ -26,7 +29,7 @@
       <param name="subscribe_stereo" type="bool" value="false"/> <!-- default is false can remove line -->
       <param name="subscribe_rgbd" type="bool" value="true"/>
 
-      <remap from="odom" to="/odometry/gps"/>
+      <remap from="odom" to="/robot_odom_from_pose"/>
       <remap from="gps/fix" to="/gps/fix"/>
 
       <remap from="scan" to="/$(arg camera)/scan"/>
