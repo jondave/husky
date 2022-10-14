@@ -27,8 +27,17 @@
 
     <param name="frame_id"                    type="string" value="base_link"/>
     <param name="odom_frame_id"               type="string" value="odom"/>
-    <param name="publish_tf"                  type="bool"   value="true"/>
+    <param name="publish_tf"                  type="bool"   value="false"/>
   </node>
+
+  <!-- RTABmapviz -->
+  <!--<node name="rtabmapviz" pkg="rtabmap_ros" type="rtabmapviz" output="screen" args="" launch-prefix="">    
+      <remap from="rgb/image"         to="/$(arg camera)/color/image_raw"/>
+      <remap from="depth/image"       to="/$(arg camera)/aligned_depth_to_color/image_raw"/>
+      <remap from="rgb/camera_info"   to="/$(arg camera)/color/camera_info"/>
+
+      <remap from="odom"              to="/odometry/filtered"/>
+  </node>-->
 
   <!-- SLAM -->
   <group ns="rtabmap">
