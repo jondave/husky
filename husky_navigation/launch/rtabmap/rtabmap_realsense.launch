@@ -17,13 +17,13 @@
   </node>
 
   <!-- RTABmapviz -->
-  <node name="rtabmapviz" pkg="rtabmap_ros" type="rtabmapviz" output="screen" args="" launch-prefix="">    
+  <!--<node name="rtabmapviz" pkg="rtabmap_ros" type="rtabmapviz" output="screen" args="" launch-prefix="">    
       <remap from="rgb/image"         to="/$(arg camera)/color/image_raw"/>
       <remap from="depth/image"       to="/$(arg camera)/aligned_depth_to_color/image_raw"/>
       <remap from="rgb/camera_info"   to="/$(arg camera)/color/camera_info"/>
 
       <remap from="odom"              to="/odometry/filtered"/>
-  </node>
+  </node>-->
 
   <!-- SLAM -->
   <group ns="rtabmap">
@@ -60,9 +60,10 @@
       <param name="Vis/MinInliers"            type="string" value="12"/>
 
       <!--<param name="Grid/FromDepth"            type="string" value="true"/>--> <!-- generate occupancy map from depth not laser scan -->
-      <param name="Grid/Sensor"               type="string" value="2"/><!-- Create occupancy grid from selected sensor: 0=laser scan, 1=depth image(s) or 2=both laser scan and depth image(s) -->
+      <param name="Grid/Sensor"               type="string" value="0"/><!-- Create occupancy grid from selected sensor: 0=laser scan, 1=depth image(s) or 2=both laser scan and depth image(s) -->
 
       <param name="Grid/MaxObstacleHeight"    type="string" value="1"/>
+      <param name="Grid/MaxGroundHeight"      type="string" value="0.4"/>
 
       <param name="approx_sync"               type="bool" value="true"/>
 
