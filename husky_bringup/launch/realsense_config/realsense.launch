@@ -1,5 +1,5 @@
 <launch>
-  <arg name="serial_no"           default="$(optenv HUSKY_REALSENSE_SERIAL 141722073232)"/> <!-- 112322070028 -->
+  <arg name="serial_no"           default="$(optenv HUSKY_REALSENSE_SERIAL 050222071152)"/> <!-- 141722073232 --> <!-- 112322070028 -->
   <arg name="usb_port_id"         default=""/>
   <arg name="device_type"         default=""/>
   <arg name="json_file_path"      default=""/>
@@ -13,21 +13,21 @@
 
   <arg name="fisheye_width"       default="1280"/>
   <arg name="fisheye_height"      default="720"/>
-  <arg name="enable_fisheye"      default="true"/>
+  <arg name="enable_fisheye"      default="false"/> <!-- true -->
 
   <arg name="depth_width"         default="1280"/>
   <arg name="depth_height"        default="720"/>
-  <arg name="enable_depth"        default="true"/>
+  <arg name="enable_depth"        default="false"/> <!-- true -->
 
   <arg name="infra_width"         default="1280"/>
   <arg name="infra_height"        default="720"/>
-  <arg name="enable_infra"        default="true"/>
-  <arg name="enable_infra1"       default="true"/>
-  <arg name="enable_infra2"       default="true"/>
-  <arg name="infra_rgb"           default="true"/>
+  <arg name="enable_infra"        default="false"/> <!-- true -->
+  <arg name="enable_infra1"       default="false"/> <!-- true -->
+  <arg name="enable_infra2"       default="false"/> <!-- true -->
+  <arg name="infra_rgb"           default="false"/> <!-- true -->
 
-  <arg name="color_width"         default="1280"/>
-  <arg name="color_height"        default="720"/>
+  <arg name="color_width"         default="640"/> <!-- 1280 -->
+  <arg name="color_height"        default="480"/> <!-- 720 -->
   <arg name="enable_color"        default="true"/>
 
   <arg name="fisheye_fps"         default="30"/>
@@ -36,8 +36,8 @@
   <arg name="color_fps"           default="30"/>
   <arg name="gyro_fps"            default="400"/>
   <arg name="accel_fps"           default="250"/>
-  <arg name="enable_gyro"         default="true"/>
-  <arg name="enable_accel"        default="true"/>
+  <arg name="enable_gyro"         default="false"/> <!-- true -->
+  <arg name="enable_accel"        default="false"/> <!-- true -->
 
   <!-- 
     Usage of enable_pointcloud=true is deprecated, use filters=pointcloud instead
