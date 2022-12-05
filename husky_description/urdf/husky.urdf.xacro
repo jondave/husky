@@ -52,22 +52,29 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
   <xacro:arg name="laser_3d_rpy" default="$(optenv HUSKY_LASER_3D_RPY 0 0 0)" />
 
   <xacro:arg name="realsense_enabled" default="$(optenv HUSKY_REALSENSE_ENABLED 0)" />
-  <xacro:arg name="realsense_xyz" default="$(optenv HUSKY_REALSENSE_XYZ 0 0 0)" />
+  <xacro:arg name="realsense_xyz" default="$(optenv HUSKY_REALSENSE_XYZ 0.3 0 -0.05)" />
   <xacro:arg name="realsense_rpy" default="$(optenv HUSKY_REALSENSE_RPY 0 0 0)" />
   <xacro:arg name="realsense_mount" default="$(optenv HUSKY_REALSENSE_MOUNT_FRAME sensor_arch_mount_link)" />
 
   <!-- added code for second realsense camera -->
   <xacro:arg name="realsense_rear_enabled" default="$(optenv HUSKY_REALSENSE_SECONDARY_ENABLED 0)" />
-  <xacro:arg name="realsense_rear_xyz" default="$(optenv HUSKY_REALSENSE_SECONDARY_XYZ 0 0 0)" />
-  <xacro:arg name="realsense_rear_rpy" default="$(optenv HUSKY_REALSENSE_SECONDARY_RPY 0 0 0)" />
+  <xacro:arg name="realsense_rear_xyz" default="$(optenv HUSKY_REALSENSE_SECONDARY_XYZ -0.3 0 -0.05)" />
+  <xacro:arg name="realsense_rear_rpy" default="$(optenv HUSKY_REALSENSE_SECONDARY_RPY 0 0 3.14159)" />
   <xacro:arg name="realsense_rear_mount" default="$(optenv HUSKY_REALSENSE_SECONDARY_MOUNT_FRAME sensor_arch_mount_link)" />
   <!-- added code for second realsense camera -->
 
   <!-- added code for zed camera -->
   <xacro:arg name="zed_camera_enabled" default="$(optenv HUSKY_ZED_CAMERA_ENABLED 0)" />
-  <xacro:arg name="zed_camera_xyz" default="$(optenv HUSKY_ZED_CAMERA_XYZ 0 0 0)" />
+  <xacro:arg name="zed_camera_xyz" default="$(optenv HUSKY_ZED_CAMERA_XYZ 0.3 0 -0.05)" />
   <xacro:arg name="zed_camera_rpy" default="$(optenv HUSKY_ZED_CAMERA_RPY 0 0 0)" />
   <xacro:arg name="zed_camera_mount" default="$(optenv HUSKY_ZED_CAMERA_MOUNT_FRAME sensor_arch_mount_link)" />
+  <!-- added code for zed camera -->
+
+  <!-- added code for zed camera -->
+  <xacro:arg name="zed_camera_rear_enabled" default="$(optenv HUSKY_ZED_CAMERA_SECONDARY_ENABLED 0)" />
+  <xacro:arg name="zed_camera_rear_xyz" default="$(optenv HUSKY_ZED_CAMERA_SECONDARY_XYZ -0.3 0 -0.05)" />
+  <xacro:arg name="zed_camera_rear_rpy" default="$(optenv HUSKY_ZED_CAMERA_SECONDARY_RPY 0 0 3.14159)" />
+  <xacro:arg name="zed_camera_rear_mount" default="$(optenv HUSKY_ZED_CAMERA_SECONDARY_MOUNT_FRAME sensor_arch_mount_link)" />
   <!-- added code for zed camera -->
 
   <xacro:property name="husky_front_bumper_extend" value="$(optenv HUSKY_FRONT_BUMPER_EXTEND 0)" />
@@ -270,6 +277,16 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
       <child link="zed_camera_mountpoint" />
     </joint>
     <xacro:zed_camera_mount prefix="stereo_camera" topic="stereo_camera" parent_link="zed_camera_mountpoint"/>
+  </xacro:if>
+
+    <xacro:if value="$(arg zed_camera_rear_enabled)">
+    <link name="zed_camera_rear_mountpoint"/>
+    <joint name="zed_camera_rear_mountpoint_joint" type="fixed">
+      <origin xyz="$(arg zed_camera_rear_xyz)" rpy="$(arg zed_camera_rear_rpy)" />
+      <parent link="$(arg zed_camera_rear_mount)"/>
+      <child link="zed_camera_rear_mountpoint" />
+    </joint>
+    <xacro:zed_camera_mount prefix="stereo_camera_rear" topic="stereo_camera_rear" parent_link="zed_camera_rear_mountpoint"/>
   </xacro:if>
   <!-- added code -->
 

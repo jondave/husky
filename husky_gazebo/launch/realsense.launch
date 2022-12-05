@@ -55,6 +55,10 @@
             concurrency_level: 1
         </rosparam>
     </node>
+
+    <!-- merge the two laser scans to one topic from the two realsesne cameras -->
+    <include file="$(find husky_bringup)/launch/realsense_config/lasers_merger.launch" />
+
   </group>
   <!-- added code for sendon realsesne camera depth image to laserscan -->
 </launch>
