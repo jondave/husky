@@ -76,10 +76,10 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
     </group>
 
     <!-- Translate from NavSatFix to GPSFix used for mapviz//-->
-    <node name="fix_translator" pkg="gps_common" type="fix_translator">    
+    <!--<node name="fix_translator" pkg="gps_common" type="fix_translator">    
       <remap from="/navsat_fix_in"  to="/navsat/fix"/>
       <remap from="/gps_fix_out"    to="/gps/fix"/>
-    </node>
+    </node>-->
     <!-- code added -->
 
     <!-- Spawn robot in gazebo -->

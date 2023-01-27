@@ -31,20 +31,47 @@
         $(optenv HUSKY_WHEEL_MULTIPLIER 1.0)
   </rosparam>
 
-  <!-- Start EKF for localization -->
+  <!-- Start EKF for localization base_link to odom -->
   <group if="$(arg enable_ekf)" >
-    <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization">
-      <rosparam command="load" file="$(find husky_control)/config/localization.yaml" />
+    <node pkg="robot_localization" type="ekf_localization_node" name="ekf_local_localization">
+      <rosparam command="load" file="$(find husky_control)/config/ekf_local.yaml" />
     </node>
   </group>
 
-  <!-- added code for using GPS in ekf locaisation -->
+  <!-- added code for using GPS in ekf locaisation odom to map -->
+  <!-- eg at http://docs.ros.org/en/noetic/api/robot_localization/html/integrating_gps.html -->
   <group if="$(arg enable_ekf_gps)" >
-    <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization_gps">
-      <rosparam command="load" file="$(find husky_control)/config/localization_gps.yaml" />
+    <node pkg="robot_localization" type="ekf_localization_node" name="ekf_global_localization_gps">
+      <rosparam command="load" file="$(find husky_control)/config/ekf_global.yaml" />
+     <remap from="/odometry/filtered" to="/odometry/filtered/global" /> <!-- remap as both ekf nodes publish the same topic /odometry/filtered-->
+    </node>
+
+    <!-- converts gps cooridates to map cooridates and vice versa -->
+    <node pkg="robot_localization" type="navsat_transform_node" name="navsat_transform" >
+      <rosparam>
+        magnetic_declination_radians: 0
+        roll_offset: 0
+        pitch_offset: 0
+        yaw_offset: 0
+        zero_altitude: false
+        broadcast_utm_transform: false
+      </rosparam>
+
+      <!-- Subscriptions -->
+      <!--
+      <remap from="imu/data" to="imu/data" />
+      <remap from="gps/fix" to="gps/fix" />
+      <remap from="odometry/filtered" to="odometry/filtered" />
+      -->
+
+      <!-- Publications -->
+      <!--
+      <remap from="gps/filtered" to="gps/filtered" />
+      <remap from="odometry/gps" to="odometry/gps" />
+      -->
     </node>
   </group>
-  <!-- added code for using GPS in ekf locaisation -->
+  <!-- added code for using GPS in ekf locaisation odom to map -->
 
   <node pkg="interactive_marker_twist_server" type="marker_server" name="twist_marker_server" output="screen"/>
 

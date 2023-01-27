@@ -30,7 +30,8 @@
     </node>
   </group>
 
-  <node pkg="robot_localization" type="navsat_transform_node" name="navsat_transform" >
+  <!-- now in husky_control.launch -->
+  <!--<node pkg="robot_localization" type="navsat_transform_node" name="navsat_transform" >
     <rosparam>
       magnetic_declination_radians: 0
       roll_offset: 0
@@ -39,5 +40,5 @@
       zero_altitude: false
       broadcast_utm_transform: false
     </rosparam>
-  </node>
+  </node>-->
 </launch>
