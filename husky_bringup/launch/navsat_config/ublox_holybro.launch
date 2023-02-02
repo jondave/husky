@@ -27,11 +27,15 @@
   <group ns="gps">
   <!-- NavSat Processing -->
     <node pkg="nmea_navsat_driver" type="nmea_topic_driver" name="nmea_topic_driver">
+    <!-- Publications:
+          fix
+          fix_velocity    
+    -->
     </node>
   </group>
 
-  <!-- now in husky_control.launch -->
-  <!--<node pkg="robot_localization" type="navsat_transform_node" name="navsat_transform" >
+  <!-- converts gps cooridates to map cooridates and vice versa -->
+  <node pkg="robot_localization" type="navsat_transform_node" name="navsat_transform" >
     <rosparam>
       magnetic_declination_radians: 0
       roll_offset: 0
@@ -40,5 +44,18 @@
       zero_altitude: false
       broadcast_utm_transform: false
     </rosparam>
-  </node>-->
+
+      <!-- Subscriptions -->
+      <!--
+      <remap from="imu/data" to="imu/data" />
+      <remap from="gps/fix" to="gps/fix" />
+      <remap from="odometry/filtered" to="odometry/filtered" />
+      -->
+
+      <!-- Publications -->
+      <!--
+      <remap from="gps/filtered" to="gps/filtered" />
+      <remap from="odometry/gps" to="odometry/gps" />
+      -->
+  </node>
 </launch>
