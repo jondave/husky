@@ -7,6 +7,11 @@
   <arg name="enable_ekf" default="$(optenv ENABLE_EKF false)"/>
   <arg name="enable_ekf_gps" default="$(optenv ENABLE_EKF_GPS false)"/>
 
+  <!-- ekf for topo nav localisation -->
+  <arg name="enable_ekf_local" default="$(optenv ENABLE_EKF_LOCAL false)"/> <!-- local ekf base_link to odom -->
+  <arg name="enable_ekf_global" default="$(optenv ENABLE_EKF_GLOBAL false)"/> <!-- global ekf odom to map -->
+  <!-- ekf for topo nav localisation -->
+
   <arg name="config_extras"
        default="$(eval optenv('HUSKY_CONFIG_EXTRAS', find('husky_control') + '/config/empty.yaml'))"/>
 
@@ -46,6 +51,21 @@
   </group>
   <!-- added code for using GPS in ekf locaisation -->
   <!-- to use ekf for map to odom localisation look at http://docs.ros.org/en/noetic/api/robot_localization/html/integrating_gps.html -->
+
+  <!-- ekf for topo nav localisation local ekf base_link to odom -->
+  <group if="$(arg enable_ekf_local)" >
+    <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization_local">
+      <rosparam command="load" file="$(find husky_control)/config/ekf_local.yaml" />
+    </node>
+  </group>
+
+  <!-- ekf for topo nav localisation global ekf odom to map -->
+  <group if="$(arg enable_ekf_global)" >
+    <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization_global">
+      <rosparam command="load" file="$(find husky_control)/config/ekf_global.yaml" />
+    </node>
+  </group>
+  <!-- end ekf for topo nav localisation -->
 
   <node pkg="interactive_marker_twist_server" type="marker_server" name="twist_marker_server" output="screen"/>
 
